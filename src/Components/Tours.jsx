@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Tour from "./Tour";
 
-const Tours = ({toursdata} ) => {
+const Tours = ({toursData, fetchData}) => {
 
   const [data, setData] = useState([]);
 
   useEffect(()=>{
-    setData(toursdata);
-  },[toursdata]);
+    setData(toursData);
+  },[toursData]);
+
    
   if(!data || data.length === 0){
     return(
       <div className="title">
           <h2>No Tours Left</h2>
+          <button type="button" onClick={()=>fetchData()}>refresh</button>
       </div>
       
     )
   }
+ 
 
 const removeTour = (id) => {
     const newData = data.filter((item) => item.id !== id);
@@ -27,11 +30,18 @@ console.log(data);
 
 
   return (
-    <div className="tours">
+    <section>
+      <div className="title">
+        <h2>Our Tours</h2>
+        <div className="underline"></div>
+      </div>
+      <div>
       {data.map((tour) => (
         <Tour key={tour.id} removeTour={removeTour} {...tour} />
       ))}
-    </div>
+      </div>
+      
+    </section>
   );
 };
 

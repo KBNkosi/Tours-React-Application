@@ -5,29 +5,26 @@ const Tour = ({ id, image, info, name, price, removeTour }) => {
 
   return (
     <>
-      <div className="single-tour">
+      <article className="single-tour">
         <img src={image} alt={name} />
-        <h4>{name}</h4>
-        {isViewMore ? (
+        <footer>
+          <div className="tour-info">
+            <h4>{name}</h4>
+            <p>${price}</p>
+          </div>
+
           <p>
-            {info}
+            {isViewMore ? info : `${info.split(" ").slice(0, 30).join(" ")}...`}
             <button type="button" onClick={() => setIsViewMore(!isViewMore)}>
-              show less
+              {isViewMore ? "show less" : "read more"}
             </button>
           </p>
-        ) : (
-          <p>
-            {info.split(" ").slice(0, 30).join(" ")}...
-            <button type="button" onClick={() => setIsViewMore(!isViewMore)}>
-              read more
-            </button>
-          </p>
-        )}
-        <p>${price}</p>
-        <button type="button" onClick={() => removeTour(id)}>
-          Not interested
-        </button>
-      </div>
+
+          <button type="button" className="delete-btn" onClick={() => removeTour(id)}>
+            Not interested
+          </button>
+        </footer>
+      </article>
     </>
   );
 };
